@@ -41,7 +41,7 @@ app.use(bodyParser.urlencoded({
 app.post('/api/shorturl', async (req, res) => {
   const url = req.body.url;
   const urlID = shortId.generate();
-  if (!validURL.isUri(url)) {
+  if (!validURL.isWebUri(url)) {
     res.status(401).json({ error: 'invalid url' })
   } else {
     let isExist = await URL.findOne({
