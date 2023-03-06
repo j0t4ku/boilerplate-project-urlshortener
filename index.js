@@ -15,6 +15,22 @@ const urlSchema = new mongoose.Schema({
 });
 const URL = mongoose.model("URL", urlSchema);
 
+// Basic Configuration
+const port = process.env.PORT || 3000;
+
+app.use(cors());
+
+app.use('/public', express.static(`${process.cwd()}/public`));
+
+app.get('/', function (req, res) {
+  res.sendFile(process.cwd() + '/views/index.html');
+});
+
+// Your first API endpoint
+app.get('/api/hello', function (req, res) {
+  res.json({ greeting: 'hello API' });
+});
+
 //Challenge here
 const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({
@@ -70,21 +86,7 @@ app.get('/api/shorturl/:short_url', async (req, res) => {
 
 //end challenge
 
-// Basic Configuration
-const port = process.env.PORT || 3000;
 
-app.use(cors());
-
-app.use('/public', express.static(`${process.cwd()}/public`));
-
-app.get('/', function (req, res) {
-  res.sendFile(process.cwd() + '/views/index.html');
-});
-
-// Your first API endpoint
-app.get('/api/hello', function (req, res) {
-  res.json({ greeting: 'hello API' });
-});
 
 //app listener 
 app.listen(port, function () {
